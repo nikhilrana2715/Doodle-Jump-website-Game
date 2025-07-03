@@ -1,0 +1,45 @@
+body {
+    text-align: center;
+    background-color: #9cd8f2;
+} 
+
+
+#board {
+    /* background-color: green; */
+    background-image: url("./doodlejumpbackground.png");
+    height: 70.5vh;
+    width: 20.5vw;
+    padding: 2px;
+    margin: 1 auto;
+    
+}
+
+#controls {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+#controls button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #0b1010;
+    background-color: palevioletred;
+}
+#div{
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    color: #0b1010;
+    background-color: #46b1df;
+}
+
+#controls button:disabled {
+    background-color: #46b1df;
+    cursor: not-allowed;
+}  
