@@ -16,8 +16,9 @@
 ![graphics](https://img.shields.io/badge/graphics-Canvas%202D-9b6bff)
 ![audio](https://img.shields.io/badge/audio-Web%20Audio%20synth-ff6fae)
 ![offline](https://img.shields.io/badge/works-offline-2ea44f)
+![vercel](https://img.shields.io/badge/deploy-Vercel-000000?logo=vercel)
 
-[▶️ **Play in browser**](https://nikhilrana2715.github.io/Doodle-Jump-website-Game/) · [📱 **Install on your phone**](#-install) · [🧩 **Run locally**](#-build-from-source)
+[▶️ **Play on Vercel**](https://nova-hop.vercel.app/) · [🌐 **GitHub Pages mirror**](https://nikhilrana2715.github.io/Doodle-Jump-website-Game/) · [📱 **Install on phone**](#-install) · [🧩 **Run locally**](#-build-from-source)
 
 [Features](#-features) · [Controls](#-controls) · [Install](#-install) · [Build from source](#-build-from-source) · [Deploy](#-deploy) · [Architecture](#-architecture) · [Design system](docs/DESIGN-SYSTEM.md) · [Roadmap](#-roadmap) · [FAQ](#-faq)
 
@@ -64,7 +65,7 @@ Jumping is automatic. Your job is to steer, chain combos and survive.
 
 Nova Hop is a **Progressive Web App**, so there's no app store needed.
 
-- **Android (Chrome):** open the [game link](https://nikhilrana2715.github.io/Doodle-Jump-website-Game/), then tap **⋮ → Add to Home screen / Install app**. It launches fullscreen and works offline.
+- **Android (Chrome):** open the [game link](https://nova-hop.vercel.app/), then tap **⋮ → Add to Home screen / Install app**. It launches fullscreen and works offline.
 - **iPhone / iPad (Safari):** open the link, then tap **Share → Add to Home Screen**.
 - **Desktop (Chrome / Edge):** click the install icon in the address bar.
 
@@ -92,8 +93,9 @@ npm start                 # → http://localhost:3000
 
 ## 🚀 Deploy
 
-- **GitHub Pages:** live at **https://nikhilrana2715.github.io/Doodle-Jump-website-Game/**, deployed from the `main` branch (root). Every push redeploys.
-- **Any static host** (Vercel, Netlify, Cloudflare Pages): point it at the repo root. There's no build command and the output directory is `/`.
+- **Vercel (primary):** live at **https://nova-hop.vercel.app/**. The project `nova-hop` is linked to `main`, so every push auto-deploys. `vercel.json` forces a static site with no build step and sets headers (the service worker is never cached), and `.vercelignore` keeps `legacy/`, `sarver.js` and the lockfiles off the site.
+- **GitHub Pages (mirror):** live at **https://nikhilrana2715.github.io/Doodle-Jump-website-Game/**, deployed from the `main` branch (root). Every push redeploys.
+- **Any other static host** (Netlify, Cloudflare Pages): point it at the repo root. There's no build command and the output directory is `/`.
 - **Leaderboard server:** any Node host (Render, Railway, Fly.io) running `npm start` with `MONGO_URL` set.
 
 > When you change cached files, bump `CACHE` in `sw.js` so installed players get the update.

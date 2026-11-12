@@ -32,6 +32,7 @@ Formerly a "Doodle Jump" clone — rebranded to **Nova Hop** with all-original p
 - **Persistence**: `localStorage` keys prefixed `novahop.` — `best`, `wallet` (stardust), `owned`, `skin`, `muted`, `control`, `name`. Skins in `SKINS` unlock with stardust.
 
 ## Repo & deploy
+- Vercel (primary): https://nova-hop.vercel.app — project `nova-hop`, team `nikhilrana2715s-projects`, git-linked to `main` (auto-deploy on push). Config: `vercel.json` (static, headers), `.vercelignore`. Vercel MCP lacks project-create permission; account uses 2FA.
 - GitHub: https://github.com/nikhilrana2715/Doodle-Jump-website-Game (branch `main`). Live: https://nikhilrana2715.github.io/Doodle-Jump-website-Game/ (GitHub Pages from `main` root, `.nojekyll`).
 - Drive is exFAT/no-ownership → run git as `git -c safe.directory=E:/Doodle-Jump-website-Game ...`. `gh` CLI is not installed.
 - README screenshots live in `docs/` (`hero.png`, `desktop.png`); design tokens/components documented in `docs/DESIGN-SYSTEM.md` — update its changelog when tokens change.

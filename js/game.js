@@ -1430,7 +1430,7 @@
   }
   ui.btnShare.addEventListener('click', async () => {
     Sfx.click();
-    const url = location.protocol.startsWith('http') ? location.href.split('#')[0] : 'https://nikhilrana2715.github.io/Doodle-Jump-website-Game/';
+    const url = location.protocol.startsWith('http') ? location.href.split('#')[0] : 'https://nova-hop.vercel.app/';
     const text = `I scored ${lastRun.score} in Nova Hop and reached ${lastRun.zone}! Can you beat me?`;
     try {
       if (navigator.share) { await navigator.share({ title: 'Nova Hop', text, url }); return; }
