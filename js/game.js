@@ -450,10 +450,19 @@
     const playing = state === 'play';
 
     // horizontal
-    const ax = playing && !p.dead ? inputX() : state === 'menu' ? Math.sin(tick * 0.015) * 0.25 : 0;
-    p.vx += (ax * 6.8 - p.vx) * (Math.abs(ax) > 0.05 ? 0.2 : 0.12);
-    if (Math.abs(ax) > 0.15) p.face = ax > 0 ? 1 : -1;
-    p.x += p.vx;
+    if (state === 'menu') {
+      // attract mode: gentle centred sway, can never leave the ground pad
+      const nx = W / 2 + Math.sin(tick * 0.012) * 100;
+      p.vx = nx - p.x;
+      p.x = nx;
+      if (Math.abs(p.vx) > 0.2) p.face = p.vx > 0 ? 1 : -1;
+      if (p.y > 100) { p.y = -20; p.vy = 0; }
+    } else {
+      const ax = playing && !p.dead ? inputX() : 0;
+      p.vx += (ax * 6.8 - p.vx) * (Math.abs(ax) > 0.05 ? 0.2 : 0.12);
+      if (Math.abs(ax) > 0.15) p.face = ax > 0 ? 1 : -1;
+      p.x += p.vx;
+    }
     if (p.x < -p.r) p.x += W + 2 * p.r;
     else if (p.x > W + p.r) p.x -= W + 2 * p.r;
 

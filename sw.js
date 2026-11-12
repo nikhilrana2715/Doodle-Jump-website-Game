@@ -1,5 +1,5 @@
 /* Nova Hop service worker — network-first so updates show immediately, cache as offline fallback. */
-const CACHE = 'novahop-v2';
+const CACHE = 'novahop-v3';
 const ASSETS = [
   './', './index.html', './css/style.css', './js/game.js', './js/audio.js',
   './manifest.webmanifest', './assets/icon.svg', './assets/icon-192.png', './assets/icon-512.png',
