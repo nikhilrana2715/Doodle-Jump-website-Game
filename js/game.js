@@ -278,7 +278,29 @@
   let tiltX = 0;
   let tiltOn = false;
 
+  // Demo autopilot (?autopilot): steers toward the best landing platform. Used for trailers.
+  const autopilot = /[?&]autopilot(=|&|$)/.test(location.search);
+  function aiX() {
+    const p = player;
+    const feet = p.y + p.r;
+    const apex = p.vy < 0 ? feet - (p.vy * p.vy) / (2 * G) : feet;
+    let best = null;
+    for (const pl of plats) {
+      if (pl.broken || pl.gone > 0 || pl.type === 'crumble') continue;
+      if (pl.y < apex + 4 || pl.y > camY + H) continue;
+      if (!best || pl.y < best.y) best = pl;
+    }
+    if (!best) return 0;
+    let dx = best.x + best.w / 2 - p.x;
+    if (dx > W / 2) dx -= W; else if (dx < -W / 2) dx += W;
+    for (const e of enemies) {
+      if (!e.dead && Math.abs(e.y - p.y) < 90 && Math.abs(e.x - p.x) < 60 && !(p.vy > 0 && p.y < e.y)) dx += e.x > p.x ? -120 : 120;
+    }
+    return Math.abs(dx) < 6 ? 0 : clamp(dx / 40, -1, 1);
+  }
+
   function inputX() {
+    if (autopilot) return aiX();
     let x = (keys.right ? 1 : 0) - (keys.left ? 1 : 0);
     if (x === 0 && pointers.size) {
       let last = 0;

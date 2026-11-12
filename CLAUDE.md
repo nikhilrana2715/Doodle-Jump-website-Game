@@ -36,6 +36,7 @@ Formerly a "Doodle Jump" clone — rebranded to **Nova Hop** with all-original p
 - GitHub: https://github.com/nikhilrana2715/Doodle-Jump-website-Game (branch `main`). Live: https://nikhilrana2715.github.io/Doodle-Jump-website-Game/ (GitHub Pages from `main` root, `.nojekyll`).
 - Drive is exFAT/no-ownership → run git as `git -c safe.directory=E:/Doodle-Jump-website-Game ...`. `gh` CLI is not installed.
 - README screenshots live in `docs/` (`hero.png`, `desktop.png`); design tokens/components documented in `docs/DESIGN-SYSTEM.md` — update its changelog when tokens change.
+- `?autopilot` URL param = demo AI steering (used to record the trailer; `media/` is gitignored and holds the 30s LinkedIn trailer).
 - v2.1 extras: dashed BEST height flag (`save.bestAlt`), Share button (Web Share / clipboard), Haptics toggle (`save.haptics`).
 
 ## Conventions
