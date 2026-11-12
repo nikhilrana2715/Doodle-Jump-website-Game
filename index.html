@@ -1,14 +1,125 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport", content="width=device-width, initial-scale=1.0">
-        <title>Doodle Jump</title>
-        <link rel="stylesheet" href="doodlejump.css"></link>
-        <script src="doodlejump.js"></script>
-    </head>
-    <body>
-        <h1>Doodle Jump website Game</h1>
-        <canvas id="board"></canvas> 
-    </body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#120d33">
+  <meta name="description" content="Nova Hop — a bouncy sky-climbing arcade game. Hop across platforms, grab stardust, stomp spikers and climb into deep space. Plays on desktop, Android and iPhone.">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Nova Hop</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <div class="orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <aside class="side-card" aria-label="How to play">
+      <h2>How to play</h2>
+      <ul>
+        <li><kbd>A</kbd><kbd>D</kbd> or <kbd>←</kbd><kbd>→</kbd> move</li>
+        <li><kbd>Space</kbd> start · <kbd>P</kbd> pause · <kbd>M</kbd> mute</li>
+        <li>Land on top of <b>Spikers</b> to stomp them</li>
+        <li>Chain <b>stardust</b> fast for combos</li>
+        <li>Land dead-centre for <b>PERFECT</b></li>
+        <li>Beat the dashed <b>BEST</b> flag in the sky</li>
+      </ul>
+    </aside>
+
+    <main id="stage">
+      <canvas id="game" aria-label="Nova Hop game area"></canvas>
+
+      <!-- HUD -->
+      <div id="hud" class="hud">
+        <div class="hud-left">
+          <div class="hud-score" id="hudScore">0</div>
+          <div class="hud-best">BEST <span id="hudBest">0</span></div>
+        </div>
+        <div class="hud-right">
+          <div class="chip"><i class="star-ico"></i><span id="hudStars">0</span></div>
+          <button class="icon-btn" id="btnPause" aria-label="Pause"><span class="pause-ico"></span></button>
+        </div>
+        <div class="power" id="power"><span id="powerLabel">ROCKET</span><div class="power-track"><div class="power-fill" id="powerFill"></div></div></div>
+        <div class="shield-chip" id="shieldChip">SHIELD</div>
+      </div>
+
+      <div id="toast" class="toast" aria-live="polite"><small id="toastSmall"></small><strong id="toastBig"></strong></div>
+      <div class="touch-hint" id="touchHint"><span>◀ hold left</span><span>hold right ▶</span></div>
+
+      <!-- MENU -->
+      <section id="menu" class="screen show">
+        <h1 class="logo" aria-label="Nova Hop">
+          <span class="row"><span style="--i:0">N</span><span style="--i:1">O</span><span style="--i:2">V</span><span style="--i:3">A</span></span>
+          <span class="row big"><span style="--i:4">H</span><span style="--i:5">O</span><span style="--i:6">P</span></span>
+        </h1>
+        <p class="tagline">Bounce. Climb. Touch the stars.</p>
+
+        <div class="panel skins-panel">
+          <div class="panel-head"><span>Choose your blob</span><span class="wallet"><i class="star-ico"></i><b id="wallet">0</b></span></div>
+          <div class="skins" id="skins"></div>
+        </div>
+
+        <button class="btn primary" id="btnPlay">PLAY</button>
+
+        <div class="menu-row">
+          <div class="mini-stat">BEST <b id="menuBest">0</b></div>
+          <button class="pill" id="btnControl" hidden>Controls: <b id="controlLabel">Touch</b></button>
+          <button class="pill" id="btnMute" aria-label="Toggle sound">Sound: <b id="muteLabel">On</b></button>
+          <button class="pill" id="btnHaptics" hidden>Haptics: <b id="hapticsLabel">On</b></button>
+        </div>
+        <p class="how" id="howText"></p>
+        <p class="version">v2.1 · made with ♥ by Nikhil Rana</p>
+      </section>
+
+      <!-- PAUSE -->
+      <section id="pause" class="screen dim">
+        <div class="panel center">
+          <h2 class="panel-title">Paused</h2>
+          <button class="btn primary" id="btnResume">RESUME</button>
+          <button class="btn ghost" id="btnRestart">Restart</button>
+          <button class="btn ghost" id="btnHome1">Menu</button>
+        </div>
+      </section>
+
+      <!-- GAME OVER -->
+      <section id="over" class="screen dim">
+        <div class="panel center over-card">
+          <div class="ribbon" id="ribbon">NEW BEST!</div>
+          <p class="over-cause" id="overCause">You fell!</p>
+          <div class="over-score" id="overScore">0</div>
+          <div class="stats">
+            <div><small>BEST</small><b id="overBest">0</b></div>
+            <div><small>STARDUST</small><b id="overStars">0</b></div>
+            <div><small>REACHED</small><b id="overZone">—</b></div>
+          </div>
+          <div class="board" id="board" hidden>
+            <h3>Global top 5</h3>
+            <ol id="boardList"></ol>
+            <form id="boardForm" class="board-form">
+              <input id="boardName" maxlength="16" placeholder="Your name" autocomplete="nickname" required>
+              <button class="btn small" type="submit">Submit</button>
+            </form>
+          </div>
+          <button class="btn primary" id="btnAgain">PLAY AGAIN</button>
+          <div class="btn-row">
+            <button class="btn ghost" id="btnShare">Share</button>
+            <button class="btn ghost" id="btnHome2">Menu</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="rotate-hint" aria-hidden="true">Rotate to portrait for the best view</div>
+    </main>
+  </div>
+
+  <script src="js/audio.js"></script>
+  <script src="js/game.js"></script>
+</body>
 </html>

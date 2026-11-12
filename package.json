@@ -1,16 +1,13 @@
 {
-  "name": "doodle",
-  "version": "1.0.0",
-  "description": "Doodle Jump Website Game",
-  "main": "index.js",
+  "name": "nova-hop",
+  "version": "2.1.0",
+  "description": "Nova Hop — a bouncy sky-climbing arcade game for desktop, Android and iPhone",
+  "main": "sarver.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node sarver.js",
+    "static": "npx --yes http-server -p 8080 -c-1 ."
   },
-  "keywords": [
-    "Doodle",
-    "Jump",
-    "Game"
-  ],
+  "keywords": ["game", "arcade", "platformer", "pwa", "canvas"],
   "author": "Nikhil Rana",
   "license": "ISC",
   "dependencies": {
